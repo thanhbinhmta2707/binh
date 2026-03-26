@@ -14,24 +14,24 @@ body {
 
 button {
   padding: 8px 14px;
-  border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #3b82f6;
   color: white;
+  border: none;
   cursor: pointer;
 }
 
 .hero {
   text-align: center;
-  padding: 60px;
+  padding: 50px;
   background: linear-gradient(135deg, #1e293b, #0f172a);
 }
 
 input, textarea {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   margin: 10px 0;
-  border-radius: 10px;
+  border-radius: 8px;
   border: none;
 }
 
@@ -45,16 +45,16 @@ input, textarea {
 .card {
   background: #1e293b;
   padding: 20px;
-  border-radius: 14px;
+  border-radius: 12px;
   transition: 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05);
 }
 
-.card img, .card video {
-  width: 100%;
+img, video {
+  max-width: 100%;
   border-radius: 10px;
   margin-top: 10px;
 }
