@@ -1,55 +1,59 @@
-// index.html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog PRO CMS</title>
+  <title>Binh Blog</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- SEO cơ bản -->
+  <meta name="description" content="Blog chia sẻ kiến thức kiếm tiền online">
 </head>
 <body>
 
 <header class="header">
-  <h1>Binh Blog</h1>
+  <h1 onclick="goHome()" style="cursor:pointer;">Binh Blog</h1>
   <nav>
-    <button onclick="showHome()">Trang chủ</button>
-    <button onclick="showAdmin()">Admin</button>
+    <button onclick="goHome()">Trang chủ</button>
+    <button id="adminBtn" onclick="showAdmin()" style="display:none;">Admin</button>
+    <button id="logoutBtn" onclick="logout()" style="display:none;">Logout</button>
   </nav>
 </header>
 
+<!-- HOME -->
 <section id="home">
   <div class="toolbar">
-    <input onkeyup="searchPosts(this.value)" placeholder="Tìm bài...">
-    <button onclick="sortPosts()">Mới nhất</button>
+    <input id="searchInput" placeholder="Tìm bài...">
   </div>
   <div id="posts" class="grid"></div>
 </section>
 
+<!-- DETAIL -->
 <section id="postDetail" class="hidden">
-  <button onclick="showHome()">← Quay lại</button>
+  <button onclick="goHome()">← Quay lại</button>
   <h2 id="detailTitle"></h2>
   <p id="detailDate"></p>
   <p id="detailContent"></p>
 
-  <div class="ads">Quảng cáo (Google Ads / Affiliate)</div>
+  <div class="ads">Quảng cáo</div>
 </section>
 
+<!-- ADMIN -->
 <section id="admin" class="hidden">
   <h2>Đăng bài</h2>
   <input id="title" placeholder="Tiêu đề">
   <textarea id="content" placeholder="Nội dung"></textarea>
   <button onclick="addPost()">Đăng</button>
 </section>
+
+<!-- LOGIN -->
 <section id="login">
   <h2>Admin Login</h2>
   <input id="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
   <button onclick="login()">Đăng nhập</button>
 </section>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
 <script type="module" src="script.js"></script>
 </body>
 </html>
-
-
