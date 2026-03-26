@@ -1,0 +1,55 @@
+// index.html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog PRO CMS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <h1>Binh Blog</h1>
+  <nav>
+    <button onclick="showHome()">Trang chủ</button>
+    <button onclick="showAdmin()">Admin</button>
+  </nav>
+</header>
+
+<section id="home">
+  <div class="toolbar">
+    <input onkeyup="searchPosts(this.value)" placeholder="Tìm bài...">
+    <button onclick="sortPosts()">Mới nhất</button>
+  </div>
+  <div id="posts" class="grid"></div>
+</section>
+
+<section id="postDetail" class="hidden">
+  <button onclick="showHome()">← Quay lại</button>
+  <h2 id="detailTitle"></h2>
+  <p id="detailDate"></p>
+  <p id="detailContent"></p>
+
+  <div class="ads">Quảng cáo (Google Ads / Affiliate)</div>
+</section>
+
+<section id="admin" class="hidden">
+  <h2>Đăng bài</h2>
+  <input id="title" placeholder="Tiêu đề">
+  <textarea id="content" placeholder="Nội dung"></textarea>
+  <button onclick="addPost()">Đăng</button>
+</section>
+<section id="login">
+  <h2>Admin Login</h2>
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="login()">Đăng nhập</button>
+</section>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<script type="module" src="script.js"></script>
+</body>
+</html>
+
+
