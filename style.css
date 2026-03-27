@@ -1163,3 +1163,101 @@ body {
   .hero-stats { gap: 12px; }
   .stat-divider { display: none; }
 }
+
+/* ===== REPLY FEATURE ===== */
+
+/* Nút "Trả lời" trên mỗi bình luận */
+.reply-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: var(--font);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.reply-btn:hover {
+  background: rgba(59,130,246,0.1);
+  color: var(--accent);
+}
+
+/* Banner "Đang trả lời @..." phía trên textarea */
+.reply-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.25);
+  border-radius: 10px 10px 0 0;
+  font-size: 13px;
+  color: var(--accent2);
+  font-weight: 500;
+  border-bottom: none;
+}
+.reply-banner strong { color: #fff; }
+.reply-banner + .comment-textarea {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.reply-cancel-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1;
+  transition: 0.2s;
+}
+.reply-cancel-btn:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+
+/* Quote mini "Trả lời @..." trong body bình luận */
+.reply-quote {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border-left: 2px solid var(--accent);
+  padding: 4px 10px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 8px;
+}
+.reply-quote-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+.reply-quote-link:hover { text-decoration: underline; }
+
+/* Highlight khi click vào @mention */
+@keyframes commentPulse {
+  0%   { background: rgba(59,130,246,0.15); border-color: rgba(59,130,246,0.4); }
+  100% { background: transparent; border-color: transparent; }
+}
+.comment-item {
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 12px;
+  margin: -12px;
+  transition: background 0.3s;
+}
+.comment-highlight {
+  animation: commentPulse 2s ease forwards;
+}
+
+/* Avatar admin màu vàng */
+.comment-item-avatar.admin-avatar {
+  background: linear-gradient(135deg, var(--gold), #f97316);
+}
