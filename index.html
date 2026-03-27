@@ -38,6 +38,14 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         Viết bài
       </button>
+      <button class="nav-btn" id="loginNavBtn" onclick="showAuthModal('login')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Đăng nhập
+      </button>
+      <div class="user-chip hidden" id="userChip">
+        <div class="user-chip-avatar" id="userChipAvatar">?</div>
+        <span id="userChipName"></span>
+      </div>
       <button class="nav-btn btn-ghost" id="logoutBtn" onclick="logout()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Logout
@@ -51,6 +59,8 @@
   <div class="mobile-nav" id="mobileNav">
     <button class="nav-btn" onclick="goHome(); closeMobileNav()">🏠 Trang chủ</button>
     <button class="nav-btn btn-primary" id="adminBtnMobile" onclick="showAdmin(); closeMobileNav()">✏️ Viết bài</button>
+    <button class="nav-btn" id="loginNavBtnMobile" onclick="showAuthModal('login'); closeMobileNav()">🔐 Đăng nhập</button>
+    <button class="nav-btn" id="registerNavBtnMobile" onclick="showAuthModal('register'); closeMobileNav()">📝 Đăng ký</button>
     <button class="nav-btn btn-ghost" id="logoutBtnMobile" onclick="logout()">🚪 Logout</button>
   </div>
 </header>
@@ -125,6 +135,42 @@
       <div class="ads-label">Quảng cáo</div>
       <div class="ads-content">🔥 Affiliate · AI Tools · Khoá học kiếm tiền online</div>
     </div>
+
+    <!-- ===== COMMENTS ===== -->
+    <div class="comments-section">
+      <h3 class="comments-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Bình luận <span id="commentCount" class="comment-count-badge">0</span>
+      </h3>
+
+      <!-- Write comment -->
+      <div id="commentForm" class="comment-form hidden">
+        <div class="comment-avatar" id="commentAvatar">?</div>
+        <div class="comment-input-wrap">
+          <textarea id="commentText" class="comment-textarea" placeholder="Viết bình luận của bạn..."></textarea>
+          <div class="comment-form-footer">
+            <span class="comment-user-name" id="commentUserName"></span>
+            <button class="btn-comment-submit" onclick="submitComment()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Gửi
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Not logged in -->
+      <div id="commentLoginPrompt" class="comment-login-prompt">
+        <div class="prompt-icon">💬</div>
+        <p>Đăng nhập để tham gia bình luận</p>
+        <div class="prompt-btns">
+          <button class="btn-prompt-login" onclick="showAuthModal('login')">Đăng nhập</button>
+          <button class="btn-prompt-register" onclick="showAuthModal('register')">Đăng ký</button>
+        </div>
+      </div>
+
+      <!-- Comment list -->
+      <div id="commentList" class="comment-list"></div>
+    </div>
   </div>
 </section>
 
@@ -168,25 +214,54 @@
   </div>
 </section>
 
-<!-- ===== LOGIN ===== -->
-<section id="login" class="section-login">
-  <div class="login-wrap">
-    <div class="login-card">
-      <div class="login-logo">🚀</div>
-      <h2>Admin Login</h2>
-      <p class="login-sub">Đăng nhập để quản lý blog</p>
+<!-- ===== AUTH MODAL ===== -->
+<div id="authModal" class="modal-overlay hidden" onclick="closeAuthModal(event)">
+  <div class="modal-card">
+    <button class="modal-close" onclick="hideAuthModal()">×</button>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Đăng nhập</button>
+      <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Đăng ký</button>
+    </div>
+
+    <!-- Login form -->
+    <div id="authLoginForm">
+      <div class="modal-logo">🚀</div>
+      <p class="login-sub">Chào mừng trở lại!</p>
       <div class="form-group">
         <label>Email</label>
-        <input id="email" class="form-input" type="email" placeholder="admin@email.com">
+        <input id="email" class="form-input" type="email" placeholder="email@example.com">
       </div>
       <div class="form-group">
         <label>Mật khẩu</label>
         <input id="password" class="form-input" type="password" placeholder="••••••••">
       </div>
       <button class="btn-submit" onclick="login()">Đăng nhập</button>
+      <p class="auth-switch">Chưa có tài khoản? <a onclick="switchTab('register')">Đăng ký ngay</a></p>
+    </div>
+
+    <!-- Register form -->
+    <div id="authRegisterForm" class="hidden">
+      <div class="modal-logo">✨</div>
+      <p class="login-sub">Tạo tài khoản mới</p>
+      <div class="form-group">
+        <label>Tên hiển thị</label>
+        <input id="regName" class="form-input" type="text" placeholder="Tên của bạn">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input id="regEmail" class="form-input" type="email" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu (ít nhất 6 ký tự)</label>
+        <input id="regPassword" class="form-input" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn-submit" onclick="register()">Tạo tài khoản</button>
+      <p class="auth-switch">Đã có tài khoản? <a onclick="switchTab('login')">Đăng nhập</a></p>
     </div>
   </div>
-</section>
+</div>
 
 <!-- ===== TOAST ===== -->
 <div id="toast" class="toast hidden"></div>
