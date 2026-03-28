@@ -224,6 +224,9 @@ body {
   /* But toggling works to collapse */
   .sidebar.collapsed { left: calc(-1 * var(--sidebar-w)); }
   .main-content.expanded { margin-left: 0; }
+  .page-overlay {
+    margin-left: calc(var(--sidebar-w) + 10px);
+  }
 }
 
 @media (max-width: 1023px) {
@@ -240,6 +243,7 @@ body {
   background: var(--bg);
   z-index: 120;
   overflow-y: auto;
+  animation: fadeIn 0.25s ease;
 }
 
 /* ===== UTILS ===== */
