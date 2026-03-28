@@ -1,0 +1,11 @@
+[
+  {
+    "origin": [
+      "https://thanhbinhmta2707.github.io",
+      "http://localhost:5500"
+    ],
+    "method": ["GET", "POST", "PUT"],
+    "responseHeader": ["Content-Type"],
+    "maxAgeSeconds": 3600
+  }
+]
