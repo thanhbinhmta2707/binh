@@ -586,7 +586,7 @@ async function ensureChartJsGlobal(){
   if(window.Chart) return;
   await new Promise((res,rej)=>{
     const s=document.createElement("script");
-    s.src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js";
+    s.src="chart.js";
     s.onload=res; s.onerror=rej;
     document.head.appendChild(s);
   });
