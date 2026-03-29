@@ -5,17 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Binh Blog – Kiếm Tiền Online</title>
   <meta name="description" content="Blog chia sẻ cách kiếm tiền online, AI tools, kinh nghiệm thực tế">
+  <meta name="google-site-verification" content="SvH_kKFw7cQyHZlrBew-tZCM2DfYpkS3p63BWDdqwoU" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231e40af'/><text y='.9em' font-size='70' x='10'>🚀</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <meta name="google-site-verification" content="SvH_kKFw7cQyHZlrBew-tZCM2DfYpkS3p63BWDdqwoU" />
 </head>
-
 <body>
 
-<!-- ===== HEADER ===== -->
 <header class="header" id="header">
   <div class="header-inner">
     <div class="header-left">
@@ -48,7 +46,6 @@
   </div>
 </header>
 
-<!-- ===== LAYOUT ===== -->
 <div class="layout" id="layout">
 
   <!-- SIDEBAR -->
@@ -72,6 +69,10 @@
         <button class="sidebar-item" id="nav-finance" onclick="navigateTo('finance')">
           <span class="si-icon">📊</span><span class="si-label">Kết quả tài chính</span>
         </button>
+        <!-- Admin only -->
+        <button class="sidebar-item" id="nav-stock" onclick="navigateTo('stock')" style="display:none">
+          <span class="si-icon">📈</span><span class="si-label">Dự báo giá CK</span>
+        </button>
         <div class="sidebar-divider"></div>
         <button class="sidebar-item" id="nav-settings" onclick="navigateTo('settings')">
           <span class="si-icon">⚙️</span><span class="si-label">Cài đặt</span>
@@ -84,10 +85,7 @@
   </aside>
 
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-  <!-- MAIN -->
   <main class="main-content" id="mainContent"></main>
-
 </div>
 
 <!-- POST DETAIL -->
@@ -109,11 +107,28 @@
       </button>
       <div class="slider-dots" id="sliderDots"></div>
     </div>
+
     <div id="detailContent" class="detail-content"></div>
-    <div class="ads-block">
-      <div class="ads-label">Quảng cáo</div>
-      <div class="ads-content">🔥 Affiliate · AI Tools · Khoá học kiếm tiền online</div>
+
+    <!-- Reactions & Share -->
+    <div id="reactionsWrap" class="reactions-wrap"></div>
+
+    <!-- AI Payment block (replaces ads) -->
+    <div class="ai-pay-block">
+      <div class="ai-pay-icon">🤖</div>
+      <div class="ai-pay-info">
+        <div class="ai-pay-title">Công cụ AI hỗ trợ ra quyết định trong 1 tháng tiếp theo</div>
+        <div class="ai-pay-sub">Phân tích kỹ thuật · Dự đoán xu hướng · Biểu đồ dự báo</div>
+      </div>
+      <div class="ai-pay-right">
+        <div class="ai-pay-price">50.000đ</div>
+        <button class="ai-pay-btn" id="postPayBtn" data-ticker="" data-postid="">
+          Mua ngay →
+        </button>
+      </div>
     </div>
+
+    <!-- Comments -->
     <div class="comments-section">
       <h3 class="comments-title">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -136,7 +151,7 @@
         <div class="prompt-icon">💬</div>
         <p>Đăng nhập để tham gia bình luận</p>
         <div class="prompt-btns">
-          <button class="btn-prompt-login"    onclick="showAuthModal('login')">Đăng nhập</button>
+          <button class="btn-prompt-login" onclick="showAuthModal('login')">Đăng nhập</button>
           <button class="btn-prompt-register" onclick="showAuthModal('register')">Đăng ký</button>
         </div>
       </div>
@@ -155,11 +170,11 @@
     <input type="hidden" id="editPostId">
     <div class="form-group">
       <label>Tiêu đề bài viết</label>
-      <input id="title" class="form-input" placeholder="Nhập tiêu đề hấp dẫn...">
+      <input id="title" class="form-input" placeholder="VD: Phân tích MBB – Tháng 3/2026">
     </div>
     <div class="form-group">
       <label>Nội dung</label>
-      <textarea id="content" class="form-textarea" placeholder="Viết nội dung bài viết..."></textarea>
+      <textarea id="content" class="form-textarea" placeholder="Viết nội dung phân tích..."></textarea>
     </div>
     <div class="form-group">
       <label>Ảnh / Video (chọn nhiều file)</label>
@@ -185,8 +200,8 @@
   <div class="modal-card">
     <button class="modal-close" onclick="hideAuthModal()">×</button>
     <div class="auth-tabs">
-      <button class="auth-tab active" id="tabLogin"    onclick="switchTab('login')">Đăng nhập</button>
-      <button class="auth-tab"        id="tabRegister" onclick="switchTab('register')">Đăng ký</button>
+      <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Đăng nhập</button>
+      <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Đăng ký</button>
     </div>
     <div id="authLoginForm">
       <div class="modal-logo">🚀</div>
