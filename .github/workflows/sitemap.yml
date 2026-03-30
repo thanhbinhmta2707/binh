@@ -20,8 +20,14 @@ jobs:
           echo '<?xml version="1.0" encoding="UTF-8"?>' > sitemap.xml
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
 
+          # Thêm trang chủ
+          echo "<url><loc>https://thanhbinhmta2707.github.io/binh/</loc></url>" >> sitemap.xml
+
+          # Quét các file HTML (loại file verify của Google)
           for file in *.html; do
-            echo "<url><loc>https://thanhbinhmta2707.github.io/binh/$file</loc></url>" >> sitemap.xml
+            if [[ "$file" != google* ]]; then
+              echo "<url><loc>https://thanhbinhmta2707.github.io/binh/$file</loc></url>" >> sitemap.xml
+            fi
           done
 
           echo '</urlset>' >> sitemap.xml
