@@ -18,7 +18,7 @@ jobs:
           echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' >> sitemap.xml
 
           for file in *.html; do
-            echo "<url><loc>https://thanhbinhmta2707.github.io/$file</loc></url>" >> sitemap.xml
+            echo "<url><loc>https://thanhbinhmta2707.github.io/binh/$file</loc></url>" >> sitemap.xml
           done
 
           echo '</urlset>' >> sitemap.xml
