@@ -586,7 +586,7 @@ async function ensureChartJsGlobal(){
   if(window.Chart) return;
   await new Promise((res,rej)=>{
     const s=document.createElement("script");
-    s.src="chart.js";
+    s.src="script.js";
     s.onload=res; s.onerror=rej;
     document.head.appendChild(s);
   });
